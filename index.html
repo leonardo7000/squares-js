@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+<div class="top">
+<table id='top' cellspacing="0" cellpadding="2">
+  <tr>
+    <td><button class="btn_minus" onclick="deleteColumn(this)">-</button></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</div>
+
+<div class="main">
+    <div class="left">
+      <table id='left'>
+      <tr>
+        <td><button class="btn_minus" onclick="deleteRow(this)">-</button></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+      </table>
+    </div>
+
+<div class="center">
+      <table id="myTable">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    </div>
+
+<div class="right">
+    <table id='right'>
+       <tr>
+        <td><button class="btn_plus" onclick="addColumn(this)">+</button></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+    </table>
+    </div>
+
+</div>
+
+<div class="bottom">
+   <table id='bottom' cellspacing="0" cellpadding="2">
+  <tr>
+    <td><button class="btn_plus" onclick="addRow(this)">+</button></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</div>
+
+</div>
+</div>
+
+<script src="js/script.js">
+</script>
+
+</body>
+</html>
