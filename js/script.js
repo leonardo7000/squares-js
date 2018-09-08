@@ -1,3 +1,5 @@
+ var coord = [];
+
 //когда страница загрузится полностью, запустится функция
 window.onload = function () {
   //находим элементы таблицы
@@ -10,8 +12,16 @@ window.onload = function () {
 	// показываем кнопки удаления
 	var buttons = new Buttons();
 	buttons.showRemove(coord);
-	
   };
+  
+  table.onmouseout = function(e) {
+    //document.getElementById('exemple1').style.display='none';
+	if (e.fromElement.localName == 'td') {
+		var buttons = new Buttons();
+		buttons.hideRemove(coord, 1500);
+	}
+	
+  }
     
 }
 
@@ -52,20 +62,21 @@ function Buttons() {
 		}
 	}
 	
-	this.clearRemove = function(coord){
+	this.hideRemove = function(coord, timeout){
 		var rowIndex = coord[0];
 		var cellIndex = coord[1];
 		
-		// получаем все кнопки удаления
+		// получаем все кнопки удаления сверху
 		var buttons = document.getElementsByClassName('btn_minus');
-		// определяем количество кнопок (на всякий случай)
-		var btnNums = buttons.length;
-		console.log('btns: ' + btnNums);
-		for(var i=0; i<=btnNums; i++){
-			// если элемент (кнопка) существует - удаляем её
-			if(buttons[i] != null){
-				buttons[i].remove();
-			}
+		if(buttons[0] != null && buttons[1] != null){
+			tdHovered = document.querySelectorAll('td:hover');
+			if( tdHovered.length == 0)
+			window.setTimeout(function(){
+				
+					buttons[0].remove();
+					buttons[0].remove();
+				
+			}, timeout);
 		}
 	}
 }
@@ -86,7 +97,11 @@ function Cursor(){
 }
 
 function Table(){
-	
+	this.getRowsNum = function(){
+		// находим все строки наблицы
+		var rows = document.getElementById("myTable").getElementsByTagName('tr');
+		return rowsNum = rows.length;
+	}
 	
 	this.getColumnsNum = function(){
 		var rows = document.getElementById("myTable").getElementsByTagName('tr');
@@ -137,31 +152,39 @@ function Table(){
 	}
 	
 	this.removeRow = function (rowIndex){
-		document.getElementById("myTable").deleteRow(rowIndex);
-		
-		removeRowFromAuxiliaryTables('left');
-		removeRowFromAuxiliaryTables('right');
-		
-		function removeRowFromAuxiliaryTables(tableId){
-			var table = document.getElementById(tableId);
-			table.deleteRow(1);
+		var rowsNum = this.getRowsNum();
+		if(rowsNum > 1){
+			document.getElementById("myTable").deleteRow(rowIndex);
+			
+			removeRowFromAuxiliaryTables('left');
+			removeRowFromAuxiliaryTables('right');
+			
+			function removeRowFromAuxiliaryTables(tableId){
+				var table = document.getElementById(tableId);
+				table.deleteRow(1);
+			}
 		}
 	}
 	
 	this.removeColumn = function (columnIndex){
-		var rows = document.getElementById("myTable").getElementsByTagName('tr');
-		for(var i=0; i< rows.length; i++){
-			var row = rows[i];
-			row.deleteCell(columnIndex);
+		var colsNum = this.getColumnsNum();
+		if(colsNum > 1){
+			var rows = document.getElementById("myTable").getElementsByTagName('tr');
+			for(var i=0; i< rows.length; i++){
+				var row = rows[i];
+				row.deleteCell(columnIndex);
+			}
+			
+			removeColumnFromAuxiliaryTables('top');
+			removeColumnFromAuxiliaryTables('bottom');
+			
+			function removeColumnFromAuxiliaryTables(tableId){
+				var tableRow = document.getElementById(tableId).getElementsByTagName('tr');
+				tableRow[0].deleteCell(1);
+			}
 		}
-		
-		removeColumnFromAuxiliaryTables('top');
-		removeColumnFromAuxiliaryTables('bottom');
-		
-		function removeColumnFromAuxiliaryTables(tableId){
-			var tableRow = document.getElementById(tableId).getElementsByTagName('tr');
-			tableRow[0].deleteCell(1);
-		}
+		td = document.querySelectorAll('td:hover');
+		td
 	}
 	
 	
@@ -186,6 +209,7 @@ function deleteRow(rowIndex) {
 
 function deleteColumn(columnIndex){
 	var table = new Table;
-	table.removeColumn(columnIndex);
+	table.removeColumn(coord[0]);
+	coord[0]--;
 }
 
